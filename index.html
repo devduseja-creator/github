@@ -13,16 +13,15 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom right, #ffe6f0, #ffcce0);
+  background: linear-gradient(135deg, #ffd6e7, #ffc0cb);
   font-family: Arial, sans-serif;
   text-align: center;
 }
 
 h1 {
-  font-size: 38px;
+  font-size: 40px;
   color: #ff0066;
   padding: 20px;
-  transition: 0.5s ease;
 }
 
 button {
@@ -66,7 +65,9 @@ button {
 <button id="yesBtn">Yes 💖</button>
 <button id="noBtn">No 💔</button>
 
-<audio id="bgMusic" src="music.mp3" loop></audio>
+<audio id="bgMusic" loop autoplay>
+  <source src="./music.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 const noBtn = document.getElementById("noBtn");
@@ -85,12 +86,19 @@ const messages = [
 "Last chance 😭"
 ];
 
-// Play music on first tap
-document.body.addEventListener("click", function() {
+// Try autoplay on load
+window.addEventListener("load", function() {
   music.play().catch(()=>{});
-}, { once: true });
+});
 
-// No button move (mobile + desktop)
+// Fallback: first click anywhere starts music
+document.body.addEventListener("click", function() {
+  if (music.paused) {
+    music.play().catch(()=>{});
+  }
+});
+
+// NO button move
 noBtn.addEventListener("click", function() {
   const x = Math.random() * (window.innerWidth - 100);
   const y = Math.random() * (window.innerHeight - 50);
@@ -107,13 +115,20 @@ noBtn.addEventListener("click", function() {
   yesBtn.style.transform = `scale(${yesScale})`;
 });
 
-// Yes click animation
+// YES button
 yesBtn.addEventListener("click", function() {
-  document.body.innerHTML = "<h1 style='font-size:45px; color:#ff0066;'>Yayyyy Sanjana 💕<br>You made me the happiest person 🥰</h1>";
+
+  document.body.innerHTML = `
+    <h1 style="font-size:45px; color:#ff0066;">
+      Yayyyy Sanjana 💕<br>
+      You made me the happiest person 🥰
+    </h1>
+  `;
+
   setInterval(createRose, 200);
 });
 
-// Falling roses effect
+// Falling roses
 function createRose() {
   const rose = document.createElement("div");
   rose.classList.add("rose");
