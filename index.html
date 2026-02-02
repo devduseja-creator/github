@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Sanjana ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(135deg, #ffd6e7, #ffc0cb);
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  font-size: 38px;
+  color: #ff0066;
+  padding: 20px;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#yesBtn {
+  background-color: #ff4d88;
+  color: white;
+}
+
+#noBtn {
+  background-color: gray;
+  color: white;
+  position: relative;
+}
+
+.rose {
+  position: fixed;
+  top: -50px;
+  font-size: 25px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="mainContent">
+  <h1 id="question">Sanjana, will you be my Valentine? 🥺❤️</h1>
+  <button id="yesBtn">Yes 💖</button>
+  <button id="noBtn">No 💔</button>
+</div>
+
+<h1 id="finalMessage" class="hidden">
+  Yayyyy Sanjana 💕<br>
+  You made me the happiest person 🥰
+</h1>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById("bgMusic");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const question = document.getElementById("question");
+const mainContent = document.getElementById("mainContent");
+const finalMessage = document.getElementById("finalMessage");
+
+let noClicks = 0;
+let yesScale = 1;
+
+const messages = [
+"Are you sure? 😭",
+"Please don't do this 🥺",
+"I'll cry 😢",
+"Think again Sanjana 💔",
+"Last chance 😭"
+];
+
+// Try autoplay
+window.addEventListener("load", () => {
+  music.play().catch(()=>{});
+});
+
+// First tap guaranteed play
+document.body.addEventListener("click", () => {
+  if (music.paused) {
+    music.play().catch(()=>{});
+  }
+}, { once: true });
+
+// NO button
+noBtn.addEventListener("click", () => {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  noBtn.style.position = "absolute";
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+
+  if (noClicks < messages.length) {
+    question.innerText = messages[noClicks];
+    noClicks++;
+  }
+
+  yesScale += 0.2;
+  yesBtn.style.transform = `scale(${yesScale})`;
+});
+
+// YES button
+yesBtn.addEventListener("click", () => {
+  mainContent.classList.add("hidden");
+  finalMessage.classList.remove("hidden");
+
+  setInterval(createRose, 250);
+});
+
+// Falling roses
+function createRose() {
+  const rose = document.createElement("div");
+  rose.classList.add("rose");
+  rose.innerHTML = "🌹";
+  rose.style.left = Math.random() * window.innerWidth + "px";
+  rose.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  document.body.appendChild(rose);
+
+  setTimeout(() => rose.remove(), 5000);
+}
+</script>
+
+</body>
+</html>
