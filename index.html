@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Sanjana ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: pink;
+  font-family: Arial;
+  text-align: center;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 20px;
+  margin: 10px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+#yesBtn {
+  background: hotpink;
+  color: white;
+}
+
+#noBtn {
+  background: gray;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Sanjana, will you be my Valentine? ❤️</h1>
+
+<button id="yesBtn">Yes 💖</button>
+<button id="noBtn">No 💔</button>
+
+<audio id="bgMusic" src="music.mp3" loop></audio>
+
+<script>
+const music = document.getElementById("bgMusic");
+
+document.getElementById("yesBtn").addEventListener("click", function() {
+  music.play();
+  alert("Yayyyy Sanjana 💕");
+});
+
+document.getElementById("noBtn").addEventListener("click", function() {
+  music.play();
+  alert("Music will still play 😎");
+});
+</script>
+
+</body>
+</html>
